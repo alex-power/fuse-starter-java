@@ -3,7 +3,6 @@ package org.galatea.starter.service;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +25,6 @@ public class IexService {
   @NonNull
   private IexCloudClient iexCloudClient;
   private IexClient iexClient;
-  private Set<IexHistoricalPrice> cacheSet;
-
-  public IexService(){
-    cacheSet = new HashSet<IexHistoricalPrice>();
-  }
-
   /**
    * Get all stock symbols from IEX.
    *
@@ -56,7 +49,6 @@ public class IexService {
   }
 
   public List<IexHistoricalPrice> getHistoricalPrices(String symbol, String range){
-    if(cacheSet.contains())
       return iexCloudClient.getHistoricalPrices(symbol, range);
     }
   }
