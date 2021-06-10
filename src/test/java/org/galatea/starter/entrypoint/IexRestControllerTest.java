@@ -81,4 +81,20 @@ public class IexRestControllerTest extends ASpringTest {
         .andExpect(jsonPath("$", is(Collections.emptyList())))
         .andReturn();
   }
+
+
+  @Test
+  public void testGetHistoricalPrices() throws Exception {
+
+    MvcResult result = this.mvc.perform(
+            org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                    .get("/iex/historicalPrices?symbol=TSLA&range=1m")
+                    // This URL will be hit by the MockMvc client. The result is configured in the file
+                    // src/test/resources/wiremock/mappings/mapping-lastTradedPrice.json
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].symbol", is("TSLA")))
+            .andExpect(jsonPath("$[0].close").value(new BigDecimal("629.04")))
+            .andReturn();
+  }
 }
